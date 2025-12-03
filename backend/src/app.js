@@ -11,9 +11,11 @@ const subscriberRoutes = require("./routes/subscriber.routes");
 
 const app = express();
 
-// 👇 THE NUCLEAR FIX: Allow everyone.
+// 👇 THE MAGIC FIX 👇
+// origin: true -> Reflects the request origin (Allows credentials + any domain)
 app.use(cors({
-  origin: "*", 
+  origin: true, 
+  credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
