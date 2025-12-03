@@ -2,18 +2,22 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 /* =====================================================
-   GET SETTINGS (Upsert ensures it always exists)
+   GET SETTINGS (Safer Singleton Logic)
 ===================================================== */
 async function getSettings(req, res) {
   try {
-    // We use 'upsert' to ensure settings exist even if it's the first time
-    const settings = await prisma.siteSettings.upsert({
-      where: { id: 1 },
-      update: {}, // If found, do nothing
-      create: {
-        theme: "professional", // Default
-      },
-    });
+    // 1. Try to find ANY settings row
+    let settings = await prisma.siteSettings.findFirst();
+
+    // 2. If none exists, create one
+    if (!settings) {
+      settings = await prisma.siteSettings.create({
+        data: {
+          theme: "professional",
+        },
+      });
+    }
+
     res.json(settings);
   } catch (err) {
     console.error("GET SETTINGS ERROR:", err);
@@ -27,10 +31,19 @@ async function getSettings(req, res) {
 async function updateTheme(req, res) {
   try {
     const { theme } = req.body;
+    
+    // Update the first record found
+    const existing = await prisma.siteSettings.findFirst();
+    
+    if (!existing) {
+        return res.status(404).json({ error: "Settings not initialized" });
+    }
+
     const settings = await prisma.siteSettings.update({
-      where: { id: 1 },
+      where: { id: existing.id },
       data: { theme },
     });
+    
     res.json(settings);
   } catch (err) {
     console.error("UPDATE THEME ERROR:", err);
