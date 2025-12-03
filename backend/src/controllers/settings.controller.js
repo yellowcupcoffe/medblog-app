@@ -2,7 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 /* =====================================================
-   GET SETTINGS (Safer Singleton Logic)
+   GET SETTINGS (Safer Logic)
 ===================================================== */
 async function getSettings(req, res) {
   try {
@@ -25,14 +25,10 @@ async function getSettings(req, res) {
   }
 }
 
-/* =====================================================
-   UPDATE THEME
-===================================================== */
 async function updateTheme(req, res) {
   try {
     const { theme } = req.body;
     
-    // Update the first record found
     const existing = await prisma.siteSettings.findFirst();
     
     if (!existing) {
