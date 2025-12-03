@@ -15,7 +15,7 @@ const TableSkeleton = () => (
   </div>
 );
 
-export default function Subs() {
+export default function NewsletterPage() {
   const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");

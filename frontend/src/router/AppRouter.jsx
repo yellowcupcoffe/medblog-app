@@ -13,7 +13,7 @@ import CreatePost from "../pages/admin/CreatePost";
 import EditPost from "../pages/admin/EditPost";
 import FeedbackPage from "../pages/admin/FeedbackPage";
 // 👇 1. IMPORT THIS
-import SubscribersPage from "../pages/admin/SubscribersPage"; 
+import NewsletterPage from "../pages/admin/NewsletterPage";
 
 const router = createBrowserRouter([
   {
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
   { path: "/admin/feedback", element: <FeedbackPage /> },
   
   // 👇 2. ADD THIS ROUTE
-  { path: "/admin/subscribers", element: <SubscribersPage /> },
+  { path: "/admin/subscribers", element: <NewsletterPage /> },
 ]);
 
 export default function AppRouter() {
