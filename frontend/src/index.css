@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* FLOATING / BACKGROUND IMAGE SYSTEM */
+.theme-bg-container {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.22; /* increase for more visibility */
+}
+
+.theme-bg-img {
+  position: absolute;
+  height: 180px;
+  width: 180px;
+  object-fit: cover;
+  border-radius: 18px;
+  opacity: 0.25;
+  filter: blur(1px);
+  animation: slowFloat 18s ease-in-out infinite;
+}
+
+.floating-image-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.floating-img {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 14px;
+  opacity: 0.55; /* ★★ MUCH more visible now */
+  animation: floatSoft 9s ease-in-out infinite;
+}
+
+/* KEYFRAMES */
+@keyframes slowFloat {
+  0%   { transform: translateY(0px) rotate(-3deg); }
+  50%  { transform: translateY(-50px) rotate(3deg); }
+  100% { transform: translateY(0px) rotate(-3deg); }
+}
+
+@keyframes floatSoft {
+  0%   { transform: translate(0px,0px) rotate(-4deg); }
+  50%  { transform: translate(25px,-35px) rotate(4deg); }
+  100% { transform: translate(0px,0px) rotate(-4deg); }
+}
+
+/* theme background and floating images */
+
+/* ThemeBackground root */
+.theme-bg-root {
+  position: fixed;
+  inset: 0;
+  z-index: 0; /* behind content */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* collage container */
+.theme-bg-collage {
+  position: absolute;
+  width: 160%;
+  height: 160%;
+  left: -30%;
+  top: -30%;
+  display: block;
+  transform: translateZ(0);
+}
+
+/* single background image tile */
+.theme-bg-image {
+  position: absolute;
+  width: 38%;
+  height: 38%;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  mix-blend-mode: multiply; /* helps blend into background */
+  opacity: 0.95;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+/* Floating decorations root — sits above theme background but below main content */
+.floating-root {
+  position: fixed;
+  inset: 0;
+  z-index: 5; /* above background, under UI (UI should be z-index > 10) */
+  pointer-events: none;
+}
+
+/* floating small "polaroid" card */
+.floating-card {
+  position: absolute;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(18, 24, 40, 0.12);
+  transform-origin: center;
+  opacity: 0.95;
+  will-change: transform, opacity;
+  animation-name: floatDrift;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  /* small subtle fade movement */
+}
+
+/* drift animation */
+@keyframes floatDrift {
+  0% { transform: translateY(-6px) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(8px) rotate(calc(var(--r, 0deg) + 2deg)); }
+  100% { transform: translateY(-6px) rotate(var(--r, 0deg)); }
+}
+
+/* reduce clutter on small screens */
+@media (max-width: 768px) {
+  .theme-bg-collage { display: none; } /* hide big collage on phone */
+  .floating-root { display: none; } /* hide floating images on phones to keep layout clean */
+}
