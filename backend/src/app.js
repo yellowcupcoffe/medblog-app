@@ -14,10 +14,11 @@ const app = express();
 // --- Middleware ---
 app.use(cors({
   origin: [
+    "https://riddhimamed.vercel.app", 
     "http://localhost:5173",              // Localhost Development
     "http://localhost:5174",
     "https://medblog-app.vercel.app",     // Default Vercel URL
-    "https://riddhimamed.vercel.app"      // 👈 YOUR LIVE DOMAIN (Critical Fix)
+         // 👈 YOUR LIVE DOMAIN (Critical Fix)
   ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"]
