@@ -11,16 +11,10 @@ const subscriberRoutes = require("./routes/subscriber.routes");
 
 const app = express();
 
-// --- Middleware ---
+// 👇 THE NUCLEAR FIX: Allow everyone.
 app.use(cors({
-  origin: [
-    "https://riddhimamed.vercel.app", 
-    "http://localhost:5173",              // Localhost Development
-    "http://localhost:5174",
-    "https://medblog-app.vercel.app",     // Default Vercel URL
-         // 👈 YOUR LIVE DOMAIN (Critical Fix)
-  ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  origin: "*", 
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
