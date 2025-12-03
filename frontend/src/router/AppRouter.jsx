@@ -13,7 +13,7 @@ import CreatePost from "../pages/admin/CreatePost";
 import EditPost from "../pages/admin/EditPost";
 import FeedbackPage from "../pages/admin/FeedbackPage";
 // 👇 1. IMPORT THIS
-import NewsletterPage from "../pages/admin/NewsletterPage";
+import NewsletterPage from "../pages/NewsletterPage";
 
 const router = createBrowserRouter([
   {
